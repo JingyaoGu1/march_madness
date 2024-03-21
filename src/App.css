@@ -1,38 +1,66 @@
-.App {
-  text-align: center;
+.bracket-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 32px; /* Space between brackets */
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+.bracket {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Four rounds per bracket */
+  gap: 16px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.round {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.matchup {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: center; /* Aligns items vertically in the center */
+  gap: 4px;
 }
 
-.App-link {
-  color: #61dafb;
+
+.team {
+  margin: 2px 0;
+  padding: 4px 8px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.team:hover {
+  background-color: #e7e7e7;
 }
+
+.winner {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.bracket-right {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 16px;
+  direction: rtl; /* Right-to-left layout for entire bracket */
+}
+
+.bracket-right .round {
+  direction: ltr; /* Reset direction for rounds */
+  text-align: right; /* Align text to the right */
+}
+
+.bracket-right .team, .bracket-right .winner {
+  direction: rtl; /* Right-to-left for team names and winner */
+  text-align: right; /* Align text to the right */
+}
+
