@@ -1,7 +1,10 @@
 import React from 'react';
 import Bracket from './components/Bracket';
-import backgroundImage from '../src/marchmadnessbg.jpeg'; // Adjust the path to your image
+import BracketRight from './components/BracketRight';
 import './App.css'
+import { useState } from 'react';
+import OverallChampionSelector from './components/OverallChampionSelector';
+import html2canvas from 'html2canvas';
 
 const App = () => {
   const initialTeams1 = [
@@ -79,38 +82,58 @@ const App = () => {
     { id: 63, name: 'Tennessee', seed: 2 },
     { id: 64, name: 'Saint Peter\'s', seed: 15 }
   ];
-  
-  
-  
-  
 
+  const [regionalChampions, setRegionalChampions] = useState({
+    EAST: null,
+    SOUTH: null,
+    WEST: null,
+    NORTH: null
+  });
+
+  const handleChampionSelection = (region, champion) => {
+    setRegionalChampions(prev => ({ ...prev, [region]: champion }));
+  };
+  
+  const displayAndDownloadScreenshot = () => {
+    html2canvas(document.querySelector("#capture")).then(canvas => {
+      // Convert the canvas to a data URL
+      const imageUrl = canvas.toDataURL("image/png", 1.0);
+      
+      // Display the image
+      const imageElement = document.createElement('img');
+      imageElement.src = imageUrl;
+      document.body.appendChild(imageElement); // Append the image to the body or a specific element
+  
+      // Create a download link
+      const downloadLink = document.createElement('a');
+      downloadLink.download = 'screenshot.png';
+      downloadLink.href = imageUrl;
+      downloadLink.textContent = 'Download Screenshot';
+      document.body.appendChild(downloadLink); // Append the link to the body or a specific element
+    }).catch(error => {
+      console.error("Error capturing screenshot:", error);
+    });
+  };
+  
+  
+  
+  
   return (
-    <div style={{
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: 'cover',
-      backgroundAttachment: 'fixed',
-      backgroundPosition: 'center',
-      zIndex: -1
-    }}>
+    <div>
+    <div id="capture">
+    <div className="bracket-layout">
       <div className="bracket-container">
-        <Bracket className='bracket' initialTeams={initialTeams1} />
-        <div className='bracket-right'>
-          <Bracket initialTeams={initialTeams2} />
-        </div>
-        <Bracket className='bracket' initialTeams={initialTeams3} />
-        <div className='bracket-right'>
-          <Bracket initialTeams={initialTeams4} />
-        </div>
+        <Bracket initialTeams={initialTeams1} region={'EAST'} onChampionSelected={handleChampionSelection} />
+        <BracketRight initialTeams={initialTeams2} region={'SOUTH'} onChampionSelected={handleChampionSelection}/>
+        <Bracket initialTeams={initialTeams3} region={'WEST'} onChampionSelected={handleChampionSelection} />
+        <BracketRight initialTeams={initialTeams4} region={'NORTH'} onChampionSelected={handleChampionSelection} />
       </div>
+      <OverallChampionSelector champions={regionalChampions} />
     </div>
-
+    </div>
+    <button onClick={displayAndDownloadScreenshot}>Download as Screenshot</button>
+  </div>
   );
-  
 };
 
 

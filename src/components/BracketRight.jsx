@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Round from './Round';
 
-const Bracket = ({ initialTeams, region, onChampionSelected }) => {
+const BracketRight = ({ initialTeams, region }) => {
   // Function to create initial matchups for Round of 16
   const createInitialMatchups = () => {
     const matchups = [];
@@ -28,7 +28,6 @@ const Bracket = ({ initialTeams, region, onChampionSelected }) => {
         championship: { ...rounds.championship, winner: team },
         finalWinner: team // Setting the final winner
       });
-      onChampionSelected(region, team);
     } else {
       // Handling for other rounds
       const updatedRound = rounds[roundName].map((matchup, index) => {
@@ -83,7 +82,7 @@ const Bracket = ({ initialTeams, region, onChampionSelected }) => {
   return (
     <div>
     <h2>{region}</h2>
-    <div className="bracket">
+    <div className="bracket-right">
       <Round roundName="roundOf16" matchups={rounds.roundOf16} onAdvanceTeam={advanceTeam} />
       <Round roundName="quarterfinals" matchups={rounds.quarterfinals} onAdvanceTeam={advanceTeam} />
       <Round roundName="semifinals" matchups={rounds.semifinals} onAdvanceTeam={advanceTeam} />
@@ -94,4 +93,4 @@ const Bracket = ({ initialTeams, region, onChampionSelected }) => {
   );
 };
 
-export default Bracket;
+export default BracketRight;

@@ -16,7 +16,6 @@ const Matchup = ({ teams, onAdvanceTeam }) => {
       {teams.map(team => (
         <Team key={team.id} team={team} onClick={() => handleTeamClick(team)} disabled={!!selectedTeam} />
       ))}
-      {selectedTeam && <div>Advanced: {selectedTeam.name}</div>}
     </div>
   );
 };
