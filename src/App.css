@@ -1,5 +1,5 @@
 .bracket-container {
-  border-style: groove;
+  position: relative; /* Needed for absolute positioning */
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Two columns */
   grid-template-rows: repeat(2, 1fr); /* Two rows for a 2x2 layout */
@@ -32,7 +32,7 @@
 }
 
 .matchup {
-  border-style: dashed;
+  border-style: ridge;
   display: flex;
   flex-direction: column;
   align-items: stretch; /* Stretch children to fill the width */
@@ -61,12 +61,16 @@
 }
 
 .winner {
+  grid-column: 5; /* Place it in the 5th column */
   text-align: center;
-  margin-top: 20px;
+  /* If you need to center it in the entire cell: */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Needed for absolute positioning of the pseudo-element */
 }
 
 .bracket-right {
-  border-style: double;
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* Four rounds per bracket */
   gap: 16px;
@@ -75,7 +79,6 @@
 }
 
 .bracket {
-  border-style: double;
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* Four rounds per bracket */
   gap: 16px;
@@ -98,12 +101,55 @@ h2 {
   min-height: 100vh;
 }
 
-.overall-champion-selector {
-  position: fixed; /* Fixed position relative to the viewport */
-  top: 50%;
+.champion-selector {
+  position: absolute;
+  top: 50%; 
   left: 50%;
-  transform: translate(-50%, -50%); /* Center the component */
-  z-index: 10; /* Ensure it's above all other elements */
-  /* Set width or max-width as needed */
-  /* Additional styling for the selector */
+  transform: translate(-50%, -50%);
+  z-index: 2; /* Ensure it's above the grid items */
+  /* Adjust width, height, and other styles as necessary */
+}
+
+header {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100px; /* Set a fixed height for the header */
+  background-color: #f0f0f0; /* Optional: background color */
+}
+
+header h1 {
+  margin: 0; /* Removes default margin */
+}
+
+/* Footer.css */
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px; /* Adjust height as needed */
+  /* Additional styling */
+}
+
+p {
+  margin: 0;
+  /* Additional styling for the paragraph */
+}
+
+/* Assuming the stylesheet is named styles.css */
+.button-container {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically if needed */
+  padding: 20px; /* Add some padding around the button */
+}
+
+.final-champion {
+  text-align: center; /* Center text horizontally */
+  font-size: 2rem; /* Larger font size */
+  margin-top: 20px; /* Space above the div */
+  padding: 10px; /* Padding inside the div */
+  background-color: #5364dd; /* Example background color */
+  color: white; /* Text color */
+  border-radius: 5px;
 }

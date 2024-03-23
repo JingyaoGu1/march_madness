@@ -87,7 +87,7 @@ const BracketRight = ({ initialTeams, region }) => {
       <Round roundName="quarterfinals" matchups={rounds.quarterfinals} onAdvanceTeam={advanceTeam} />
       <Round roundName="semifinals" matchups={rounds.semifinals} onAdvanceTeam={advanceTeam} />
       <Round roundName="championship" matchups={[rounds.championship]} onAdvanceTeam={advanceTeam} />
-      {rounds.championship.winner && <div className="winner">Champion: {rounds.championship.winner.name}</div>}
+      {rounds.championship.winner && <div className="winner">{region} Champion: {rounds.championship.winner.name}</div>}
     </div>
     </div>
   );

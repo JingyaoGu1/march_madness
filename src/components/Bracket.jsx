@@ -22,15 +22,13 @@ const Bracket = ({ initialTeams, region, onChampionSelected }) => {
 
   const advanceTeam = (roundName, matchupId, team) => {
     if (roundName === 'championship') {
-      // Handling for championship round
+      // Directly set the winner for the championship round
       setRounds({
         ...rounds,
-        championship: { ...rounds.championship, winner: team },
-        finalWinner: team // Setting the final winner
+        championship: { ...rounds.championship, winner: team }
       });
       onChampionSelected(region, team);
     } else {
-      // Handling for other rounds
       const updatedRound = rounds[roundName].map((matchup, index) => {
         if (index === matchupId) {
           return { ...matchup, winner: team };
@@ -50,22 +48,25 @@ const Bracket = ({ initialTeams, region, onChampionSelected }) => {
           nextRoundName = 'championship';
           break;
         default:
-          return; // No further round
+          return; // No further rounds after championship
       }
   
-      // Check if the next round is the championship round
+      // If advancing to championship, handle differently
       if (nextRoundName === 'championship') {
+        const updatedChampionship = { ...rounds.championship };
+        updatedChampionship.teams = updatedChampionship.teams.concat(team);
+  
         setRounds({
           ...rounds,
           [roundName]: updatedRound,
-          [nextRoundName]: { ...rounds[nextRoundName], teams: [team] }
+          [nextRoundName]: updatedChampionship
         });
       } else {
-        // Handling for non-championship rounds
         const nextRoundMatchupIndex = Math.floor(matchupId / 2);
         const updatedNextRound = rounds[nextRoundName].map((matchup, index) => {
           if (index === nextRoundMatchupIndex) {
-            return { ...matchup, teams: [...matchup.teams, team] };
+            const updatedTeams = [...matchup.teams, team];
+            return { ...matchup, teams: updatedTeams.length > 2 ? updatedTeams.slice(1) : updatedTeams };
           }
           return matchup;
         });
@@ -79,6 +80,7 @@ const Bracket = ({ initialTeams, region, onChampionSelected }) => {
     }
   };
   
+  
 
   return (
     <div>
@@ -88,7 +90,7 @@ const Bracket = ({ initialTeams, region, onChampionSelected }) => {
       <Round roundName="quarterfinals" matchups={rounds.quarterfinals} onAdvanceTeam={advanceTeam} />
       <Round roundName="semifinals" matchups={rounds.semifinals} onAdvanceTeam={advanceTeam} />
       <Round roundName="championship" matchups={[rounds.championship]} onAdvanceTeam={advanceTeam} />
-      {rounds.championship.winner && <div className="winner">Champion: {rounds.championship.winner.name}</div>}
+      {rounds.championship.winner && <div className="winner"> {region} Champion: {rounds.championship.winner.name}</div>}
     </div>
     </div>
   );

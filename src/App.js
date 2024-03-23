@@ -1,8 +1,10 @@
 import React from 'react';
-import Bracket from './components/Bracket';
-import BracketRight from './components/BracketRight';
 import './App.css'
 import { useState } from 'react';
+import Bracket from './components/Bracket';
+import BracketRight from './components/BracketRight';
+import Header from './components/Header';
+import Footer from './components/Footer'
 import OverallChampionSelector from './components/OverallChampionSelector';
 import html2canvas from 'html2canvas';
 
@@ -121,6 +123,7 @@ const App = () => {
   return (
     <div>
     <div id="capture">
+      <Header/>
     <div className="bracket-layout">
       <div className="bracket-container">
         <Bracket initialTeams={initialTeams1} region={'EAST'} onChampionSelected={handleChampionSelection} />
@@ -131,7 +134,10 @@ const App = () => {
       <OverallChampionSelector champions={regionalChampions} />
     </div>
     </div>
-    <button onClick={displayAndDownloadScreenshot}>Download as Screenshot</button>
+    <div className="button-container">
+      <button onClick={displayAndDownloadScreenshot}>Download as Screenshot</button>
+    </div>
+    <Footer/>
   </div>
   );
 };

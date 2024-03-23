@@ -8,9 +8,9 @@ const OverallChampionSelector = ({ champions }) => {
   };
 
   return (
-    <div>
-      <h2>Select the Overall Champion</h2>
-      <div className="champion-selector">
+    <div className="champion-selector">
+      <h2>National Champion 2024</h2>
+      <div>
         {Object.entries(champions).map(([region, champion]) => (
           <button 
             key={region} 
@@ -22,7 +22,7 @@ const OverallChampionSelector = ({ champions }) => {
           </button>
         ))}
       </div>
-      {selectedChampion && <div className="final-champion">Overall Champion: {selectedChampion.name}</div>}
+      {selectedChampion && <div className="final-champion">{selectedChampion.name}</div>}
     </div>
   );
 };
