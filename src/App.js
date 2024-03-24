@@ -7,6 +7,7 @@ import Header from './components/Header';
 import Footer from './components/Footer'
 import OverallChampionSelector from './components/OverallChampionSelector';
 import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 
 const App = () => {
   const initialTeams1 = [
@@ -96,22 +97,20 @@ const App = () => {
     setRegionalChampions(prev => ({ ...prev, [region]: champion }));
   };
   
-  const displayAndDownloadScreenshot = () => {
+  const displayAndDownloadPDF = () => {
     html2canvas(document.querySelector("#capture")).then(canvas => {
-      // Convert the canvas to a data URL
-      const imageUrl = canvas.toDataURL("image/png", 1.0);
-      
-      // Display the image
-      const imageElement = document.createElement('img');
-      imageElement.src = imageUrl;
-      document.body.appendChild(imageElement); // Append the image to the body or a specific element
+      // Create a new jsPDF instance
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'px',
+        format: [canvas.width, canvas.height]
+      });
   
-      // Create a download link
-      const downloadLink = document.createElement('a');
-      downloadLink.download = 'screenshot.png';
-      downloadLink.href = imageUrl;
-      downloadLink.textContent = 'Download Screenshot';
-      document.body.appendChild(downloadLink); // Append the link to the body or a specific element
+      // Add the canvas as an image to the PDF
+      pdf.addImage(canvas.toDataURL('image/png', 1.0), 'PNG', 0, 0, canvas.width, canvas.height);
+  
+      // Save the PDF
+      pdf.save('download.pdf');
     }).catch(error => {
       console.error("Error capturing screenshot:", error);
     });
@@ -121,8 +120,8 @@ const App = () => {
   
   
   return (
-    <div>
     <div id="capture">
+    <div>
       <Header/>
     <div className="bracket-layout">
       <div className="bracket-container">
@@ -135,7 +134,7 @@ const App = () => {
     </div>
     </div>
     <div className="button-container">
-      <button onClick={displayAndDownloadScreenshot}>Download as Screenshot</button>
+      <button onClick={displayAndDownloadPDF}>Download as Screenshot</button>
     </div>
     <Footer/>
   </div>

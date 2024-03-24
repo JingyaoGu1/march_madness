@@ -32,7 +32,7 @@
 }
 
 .matchup {
-  border-style: ridge;
+  /* border-style: ridge; */
   display: flex;
   flex-direction: column;
   align-items: stretch; /* Stretch children to fill the width */
@@ -153,3 +153,35 @@ p {
   color: white; /* Text color */
   border-radius: 5px;
 }
+
+.illinois-champion {
+  background-color: orange; /* Specific color for the Illinois champion */
+}
+
+.stylish-button {
+  background-color: white; /* Pure white background */
+  color: black; /* Text color */
+  border: 2px solid #CCCCCC; /* Stylish border, here I used a light grey color */
+  text-align: center; 
+  text-decoration: none; 
+  display: inline-block; 
+  font-size: 15px; 
+  cursor: pointer; 
+  border-radius: 5px; 
+  transition: all 0.5s; 
+}
+
+.stylish-button:hover {
+  background-color: #F8F8F8; 
+  color: #333333; 
+  border-color: #666666; 
+}
+
+
+.illinois-background {
+  background-image: url(/Users/jingyaogu/Desktop/marchmadness/marchmadness/public/ncaa.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+

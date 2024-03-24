@@ -1,5 +1,5 @@
 const Team = ({ team, onClick, disabled }) => (
-  <button onClick={onClick} disabled={disabled}>
+  <button class="stylish-button" onClick={onClick} disabled={disabled}>
     {team.seed} {team.name}
   </button>
 );

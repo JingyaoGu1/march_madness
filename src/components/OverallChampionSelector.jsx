@@ -1,7 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const OverallChampionSelector = ({ champions }) => {
   const [selectedChampion, setSelectedChampion] = useState(null);
+
+  useEffect(() => {
+    if (selectedChampion && selectedChampion.name === 'Illinois') {
+      document.body.classList.add('illinois-background');
+    } else {
+      document.body.classList.remove('illinois-background');
+    }
+  }, [selectedChampion]);
 
   const selectChampion = (champion) => {
     setSelectedChampion(champion);
@@ -22,7 +30,13 @@ const OverallChampionSelector = ({ champions }) => {
           </button>
         ))}
       </div>
-      {selectedChampion && <div className="final-champion">{selectedChampion.name}</div>}
+      {selectedChampion && (
+        <div 
+          className={`final-champion ${selectedChampion.name === 'Illinois' ? 'illinois-champion' : ''}`}
+        >
+          {selectedChampion.name}
+        </div>
+      )}
     </div>
   );
 };
