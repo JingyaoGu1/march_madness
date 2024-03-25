@@ -1,4 +1,4 @@
-# Let the Madness Begin
+# Let the Madness Begin 🏀
 
 This project is hosted at https://marchmadnessjingyao.netlify.app/
 
